@@ -1,9 +1,8 @@
 require 'redmine'
-require 'dispatcher'
 
 require File.dirname(__FILE__) + '/lib/redmine_projects_sorter'
 
-Dispatcher.to_prepare :redmine_projects_sorter do
+Rails.configuration.to_prepare do
   require_dependency 'projects_helper'
   ProjectsHelper.send(:include, Redmine::Plugins::ProjectsSorter::ProjectsHelperPatch)
   Project.safe_attributes 'ord'
